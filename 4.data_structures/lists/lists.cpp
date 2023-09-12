@@ -14,7 +14,7 @@ list* create_list_element( list* prev_elem, int var){
         prev_elem->next = elem;
     };
     return elem;
-}
+};
 
 int print_list_element( list* list_ref){
     std::cout << "Element( var:" << list_ref->item << "; next:" << list_ref->next << ")" << std::endl;
@@ -30,7 +30,7 @@ int print_list_forward( list* list_ref){
         else{ break;};
     };
     return 0;
-}
+};
 
 int delete_list_element( list* prev_elem, list* elem){
     prev_elem->next = elem->next;
