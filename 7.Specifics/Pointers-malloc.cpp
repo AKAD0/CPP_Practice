@@ -1,5 +1,9 @@
-//Memory allocation in pair with pointers allows you to manage dynamic arrays.
-//Memory is allocated on 'new' proc or 'malloc' func. It has to be freed after work is done.
+//— Memory allocation in pair with pointers allows you to:
+//  1) manage dynamic arrays (e.g. in cases of unknown in advance array sizes)
+//  2) avoid stak overflow since malloc operates on heap - not stack.
+//     • Stack is allocated for a certain process and is quite limited
+//     • Heap is allocated for everything and limited within whole free memory
+//— Memory is allocated with 'new' proc or 'malloc' func. It has to be freed after work is done.
 
 #include <iostream>
 int main(){
