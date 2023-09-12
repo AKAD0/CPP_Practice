@@ -4,7 +4,7 @@
 #include <iostream>
 int main(){
     int a=1; //Both memory allocation and var declaration to address said memory
-    int* b; //Solely variable declaration to address to a memory. Needs to be initialized (linked to a memory)
+    int* b; //Solely variable declaration that holds addresses only. Needs to be initialized (linked to a memory)
 
     //--Some ways to init pointer:
     //1st:
