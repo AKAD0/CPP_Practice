@@ -1,6 +1,21 @@
 #include <iostream>
 
-//Definintion of hash function
+//Defining structure of item of Hash table
+typedef struct Ht_item
+{
+    std::string* key;
+    std::string* value;   
+} Ht_item;
+
+//Defining structure of Hash table itself
+typedef struct HashTable
+{
+    Ht_item** items; //'items' is a pointer to array of pointers where each of them are 'Ht_item' type.
+    int size;
+    int count;
+} HashTable;
+
+//Defining hash function
 int hash_function(std::string hash_key, int hash_table_size){
     int i, hash_key_size, hash_val=0;
     hash_key_size = hash_key.size();
@@ -12,21 +27,42 @@ int hash_function(std::string hash_key, int hash_table_size){
     return( hash_val);
 };
 
-//Definition of item in hash table
-typedef struct Ht_item
-{
-    std::string* key;
-    std::string* value;   
-} Ht_item;
+//Defining function that creates item of Hash table
+Ht_item* create_item( std::string* key, std::string* value){
+    //malloc for every field with appropriate size
+    Ht_item* item = (Ht_item*) malloc( sizeof( Ht_item)); //defining pointer 'item' to 'Ht_item' //and malloc for it of type 'Ht_item*' and of size 'sizeof( Ht_item)'
+    item->key = (std::string*) malloc( (*key).size()+1); 
+    item->value = (std::string*) malloc( (*value).size()+1);
 
-//Definition of Hash table itself
-typedef struct HashTable
-{
-    Ht_item** items; //'items' is a pointer to array of pointers where each of them are 'Ht_item' type.
-    int size;
-    int count;
-} HashTable;
+    //copy given params to allocated memory
+    item->key = key;
+    item->value = value;
+};
 
+//Defining function that creates Hash table itself
+HashTable* create_table( int size){
+    //malloc
+    HashTable* table = (HashTable*) malloc( sizeof( HashTable));
+    table->size = size;
+    table->count = 0;
+    table->items = (Ht_item**) calloc( table->size, sizeof( Ht_item**)); //malloc but with given number of elements, each of them initialized as 0
+
+    //reinitialize elements as NULL
+    for ( int i=0; i<table->size; i++){
+        table->items[i]=NULL;
+    };
+    return table;
+};
+
+//Defining function that deletes (frees memory) of item of Hash table
+void free_item(Ht_item* item){
+    //code
+};
+
+//Defining function that deletes (frees memory) of Hash table
+void free_table(HashTable* table){
+    //code
+};
 
 int main(){
     //hash function
