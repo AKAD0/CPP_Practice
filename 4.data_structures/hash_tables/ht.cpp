@@ -54,15 +54,37 @@ HashTable* create_table( int size){
     return table;
 };
 
-//Defining function that deletes (frees memory) of item of Hash table
+//Defining procedure that deletes (frees memory) of item of Hash table
 void free_item(Ht_item* item){
     //code
 };
 
-//Defining function that deletes (frees memory) of Hash table
+//Defining procedure that deletes (frees memory) of Hash table
 void free_table(HashTable* table){
     //code
 };
+
+//Defining procedure that prints Hash table
+void print_table( HashTable* table){
+    //code
+};
+
+//Defining procedure that inserts new element
+void ht_insert( HashTable* table, std::string* key, std::string* value){
+    //code
+};
+
+//Defining procedure for searching for element
+void ht_search( HashTable* table, std::string* key){
+    //code
+};
+
+//Defining procedure for deleting element
+void ht_delete( HashTable* table, std::string* key){
+    //code
+};
+
+//!!! There's also should be a code to handle collisiion on insertion.
 
 int main(){
     //hash function
