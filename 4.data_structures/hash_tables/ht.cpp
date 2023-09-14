@@ -1,4 +1,5 @@
 #include <iostream>
+#define CAPACITY 10 // Size of the HashTable.
 
 //Defining structure of item of Hash table
 typedef struct Ht_item
@@ -16,15 +17,17 @@ typedef struct HashTable
 } HashTable;
 
 //Defining hash function
-int hash_function(std::string hash_key, int hash_table_size){
-    int i, hash_key_size, hash_val=0;
-    hash_key_size = hash_key.size();
+int hash_function(std::string* hash_key){
+    int hash_val, hash_key_size, i=0;
+    std::string hash_key_de;
+    hash_key_de = *hash_key;
+    hash_key_size = hash_key_de.size();
 
     for (i=0; i<hash_key_size; i++){
-        hash_val+=hash_key[i];
-    }
-    hash_val = hash_val%hash_table_size;
-    return( hash_val);
+        hash_val+=hash_key_de[i];
+    };
+
+    return( hash_val%CAPACITY);
 };
 
 //Defining function that creates item of Hash table
@@ -37,6 +40,7 @@ Ht_item* create_item( std::string* key, std::string* value){
     //copy given params to allocated memory
     item->key = key;
     item->value = value;
+    return item;
 };
 
 //Defining function that creates Hash table itself
@@ -70,7 +74,7 @@ void free_table(HashTable* table){
         };
     };
 
-    free( table->size);
+    free( table->items);
     free( table);
 };
 
@@ -80,7 +84,7 @@ void print_table( HashTable* table){
     
     for ( int i=0; i<table->size; i++){
         if ( table->items[i]){
-            std::cout << std::format("Index:{}, Key:{}, Value:{}", i, table->items[i], table->items[i]-value); << std::endl;
+            printf("Index:%d, Key:%s, Value:%s", i, table->items[i], table->items[i]->value);
         };
     };
 
@@ -89,13 +93,66 @@ void print_table( HashTable* table){
 
 //Defining procedure that inserts new element
 void ht_insert( HashTable* table, std::string* key, std::string* value){
-    //code
+    Ht_item* item = create_item( key, value);
+    int index = hash_function( key);
+
+    //check if there already is an item with the same hash val
+    Ht_item* current_item = table->items[index];
+    //if there ISN'T then insert if the table isn't full
+    if (current_item == NULL){
+        if( table->count == table->size){
+            std::cout << "Insert Error: Hash table is full\n" << std::endl;
+            free_item( item);
+            return;
+        }
+        else{
+            table->items[index] = item;
+            table->count++;
+        };
+    }
+    //if there IS then update or collision
+    else{
+        //Update if keys are equal
+        if (current_item->key == key){
+            table->items[index]->value = value;
+            return;
+        }
+        //Call collision if not equal
+        else{
+            std::cout << "Collision! Current implementation of structure doesn't support handling collisions. Abort." << std::endl;
+            free_item( item);
+            return;
+        }
+    };
+    return;
 };
 
-//Defining procedure for searching for element
-void ht_search( HashTable* table, std::string* key){
-    //code
+//Defining procedures for searching for element
+std::string* ht_search( HashTable* table, std::string* key){
+    int index = hash_function( key);
+    Ht_item* item = table->items[index];
+
+    if (item != NULL){
+        if( item->key==key){
+            return item->value;
+        }
+    }
+    else{
+        return NULL;
+    };
 };
+void print_search( HashTable* table, std::string* key){
+    std::string* val;
+    val = ht_search( table, key);
+
+    if ( val == NULL){
+        printf("Key:%s doesn't exist.", key);
+        return;
+    }
+    else{
+        printf("Key:%s, Value:%s", key, val);
+    };
+}
 
 //Defining procedure for deleting element
 void ht_delete( HashTable* table, std::string* key){
@@ -105,6 +162,13 @@ void ht_delete( HashTable* table, std::string* key){
 //!!! There's also should be a code to handle collisiion on insertion.
 
 int main(){
-        
+    HashTable* ht = create_table( 10);
+    ht_insert(ht, (std::string*)"First", (std::string*)"First item");
+    ht_insert(ht, (std::string*)"Second", (std::string*)"Second item");
+    print_search(ht, (std::string*)"First");
+    print_search(ht, (std::string*)"Second");
+    print_table(ht);
+    free_table(ht);
+
     return 0;
 };
