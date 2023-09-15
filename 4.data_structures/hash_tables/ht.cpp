@@ -1,6 +1,4 @@
 #include <iostream>
-//#include <print>
-//#include <string>
 #define CAPACITY 10 // Size of the HashTable.
 
 //Defining structure of item of Hash table
