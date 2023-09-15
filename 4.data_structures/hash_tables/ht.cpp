@@ -18,17 +18,18 @@ typedef struct HashTable
 
 //Defining hash function
 int hash_function(std::string* hash_key){
-    int hash_val, hash_key_size, i=0;
+    int temp_val, hash_sum, hash_key_size, i=0;
     std::string hash_key_de;
     hash_key_de = *hash_key;
     hash_key_size = hash_key_de.size();
 
-    hash_val=0;
+    temp_val=0;
     for (i=0; i<hash_key_size; i++){
-        hash_val+=hash_key_de[i];
+        temp_val+=hash_key_de[i];
     };
 
-    return( hash_val%CAPACITY);
+    hash_sum = temp_val%CAPACITY;
+    return( hash_sum);
 };
 
 //Defining function that creates item of Hash table
