@@ -1,4 +1,6 @@
 #include <iostream>
+//#include <print>
+//#include <string>
 #define CAPACITY 10 // Size of the HashTable.
 
 //Defining structure of item of Hash table
@@ -23,6 +25,7 @@ int hash_function(std::string* hash_key){
     hash_key_de = *hash_key;
     hash_key_size = hash_key_de.size();
 
+    hash_val=0;
     for (i=0; i<hash_key_size; i++){
         hash_val+=hash_key_de[i];
     };
@@ -80,15 +83,17 @@ void free_table(HashTable* table){
 
 //Defining procedure that prints Hash table
 void print_table( HashTable* table){
-    std::cout << "\nHash Table\n---------------" << std::endl;
+    std::cout << "\nHash Table:\n------------------------" << std::endl;
     
     for ( int i=0; i<table->size; i++){
         if ( table->items[i]){
-            printf("Index:%d, Key:%s, Value:%s", i, table->items[i], table->items[i]->value);
+            std::string dekey=(*table->items[i]->key), devalue=(*table->items[i]->value);
+            printf("Index: \"%d\", Key: \"%s\", Value: \"%s\"\n", i, dekey.c_str(), devalue.c_str());
+            //printf("Index:%d, Key:%s, Value:%s\n", i, *table->items[i]->key, *table->items[i]->value);
         };
     };
 
-    std::cout << "\n------------------------" << std::endl;
+    std::cout << "\n------------------------\n" << std::endl;
 };
 
 //Defining procedure that inserts new element
@@ -146,11 +151,13 @@ void print_search( HashTable* table, std::string* key){
     val = ht_search( table, key);
 
     if ( val == NULL){
-        printf("Key:%s doesn't exist.", key);
+        printf("Key:%s doesn't exist.\n", *key);
         return;
     }
     else{
-        printf("Key:%s, Value:%s", key, val);
+        std::string dekey=*key, deval=*val;
+        //std::print("Key:{}, Value:{}\n", dekey, deval);
+        printf("Key: \"%s\", Value: \"%s\"\n", dekey.c_str(), deval.c_str());
     };
 }
 
@@ -162,11 +169,17 @@ void ht_delete( HashTable* table, std::string* key){
 //!!! There's also should be a code to handle collisiion on insertion.
 
 int main(){
+    std::string s1 = "First", s2 = "Second", i1= "First item", i2 = "Second item";
+    std::string* sp1=&s1;
+    std::string* sp2=&s2;
+    std::string* ip1=&i1;
+    std::string* ip2=&i2;
+
     HashTable* ht = create_table( 10);
-    ht_insert(ht, (std::string*)"First", (std::string*)"First item");
-    ht_insert(ht, (std::string*)"Second", (std::string*)"Second item");
-    print_search(ht, (std::string*)"First");
-    print_search(ht, (std::string*)"Second");
+    ht_insert(ht, sp1, ip1);
+    ht_insert(ht, sp2, ip2);
+    print_search(ht, sp1);
+    print_search(ht, sp2);
     print_table(ht);
     free_table(ht);
 
