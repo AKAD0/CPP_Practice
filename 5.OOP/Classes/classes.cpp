@@ -45,12 +45,12 @@ class Player{
 
 int main(){
     //Init using the Constructor ver.2:
-    //Player* player1 = new Player(1, 100);
+    Player* player1 = new Player(1, 100);
 
     //Init using the Constructor ver.1:
-    Player* player1 = new Player();
-    player1->SetPlayerid( (int)01);
-    player1->SetHealth( (int)100);
+    //Player* player1 = new Player();
+    //player1->SetPlayerid( (int)01);
+    //player1->SetHealth( (int)100);
 
     std::cout<< *(player1->GetPlayerid()) << std::endl;
     std::cout<< *(player1->GetHealth()) << std::endl;
