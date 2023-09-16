@@ -1,4 +1,4 @@
-//Basic overview of classes. Constructor, Destructor.
+//Polymorphism. Override, overload.
 
 #include <iostream>
 
@@ -21,7 +21,14 @@ class Player{
             *this->health = set_health;
         };  
 
-        //Constructor
+        //Both could be described because of polymorphism( overload)
+        //Constructor ver.1 (Requires additional init of fields)
+        Player(){
+            this->player_id = (int*) malloc( sizeof( int));
+            this->health = (int*) malloc( sizeof( int));
+        };
+
+        //Constructor ver.2. (Inits fields with given params)
         Player(int id, int health){
             this->player_id = (int*) malloc( sizeof( int));
             this->health = (int*) malloc( sizeof( int));
@@ -37,7 +44,13 @@ class Player{
 };
 
 int main(){
+    //Init using the Constructor ver.2:
     Player* player1 = new Player(1, 100);
+
+    //Init using the Constructor ver.1:
+    //Player* player1 = new Player();
+    //player1->SetPlayerid( (int)01);
+    //player1->SetHealth( (int)100);
 
     std::cout<< *(player1->GetPlayerid()) << std::endl;
     std::cout<< *(player1->GetHealth()) << std::endl;
