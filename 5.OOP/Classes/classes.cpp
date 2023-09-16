@@ -7,6 +7,19 @@ class Player{
         int* player_id;
         int* health;
     public:
+        //Constructor
+        Player(int id, int health){
+            this->player_id = (int*) malloc( sizeof( int));
+            this->health = (int*) malloc( sizeof( int));
+            SetPlayerid(id);
+            SetHealth(health);
+        };      
+        //Destructor
+        ~Player(){
+            free( this->player_id);
+            free( this->health);
+
+        }
         int* GetPlayerid(){
             return this->player_id;
         };
@@ -20,20 +33,6 @@ class Player{
         void SetHealth( int set_health){
             *this->health = set_health;
         };  
-
-        //Constructor
-        Player(int id, int health){
-            this->player_id = (int*) malloc( sizeof( int));
-            this->health = (int*) malloc( sizeof( int));
-            SetPlayerid(id);
-            SetHealth(health);
-        };      
-
-        //Destructor
-        ~Player(){
-            free( this->player_id);
-            free( this->health);
-        }
 };
 
 int main(){
