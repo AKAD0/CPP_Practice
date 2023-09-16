@@ -1,3 +1,5 @@
+//Basic overview of classes. Constructor, Destructor.
+
 #include <iostream>
 
 class Player{
